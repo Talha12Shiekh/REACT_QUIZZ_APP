@@ -42,6 +42,11 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  transition:all 0.21s ease;
+}
+
+button:active{
+  transform:scale(0.9)
 }
 
 

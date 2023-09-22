@@ -12,6 +12,7 @@ const SingleQuizComponent = ({
   setdisableAllOptions,
   optionSelected,
   setoptionSelected,
+  setscore
 }) => {
   const [isCorrect, setisCorrect] = useState(null);
 
@@ -26,6 +27,7 @@ const SingleQuizComponent = ({
       const clickedOption = answer;
       if (clickedOption === correctAnswer) {
         setisCorrect(true);
+        setscore(p => p + 1);
       } else {
         setisCorrect(false);
       }

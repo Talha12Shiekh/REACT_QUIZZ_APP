@@ -1,8 +1,16 @@
+
 .quizBox{
-  width: 50vw;
-  height: 82vh;
-  border: 2px solid grey;
+  /* border: 2px solid grey; */
   padding: 1em;
+}
+
+.container{
+  background-color: #03a8f45e;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .quiz_top_content h1{
@@ -28,6 +36,7 @@
   border-radius: 10px;
   cursor: pointer;
   margin-bottom: 1.4rem;
+  user-select: none;
 }
 
 .quiz_options{
@@ -60,4 +69,44 @@
 
 .pointer_events{
   pointer-events: none;
+}
+
+.start_btn{
+  padding: 1em;
+  font-size: 2.6em;
+  box-shadow: 2px 2px 20px 2px grey;
+}
+
+
+.modal{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width: 50vw;
+  height: 85vh;
+  background: white;
+  box-shadow: 2px 2px 20px 2px grey;
+}
+
+.resultModal{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  width:100%;
+  height:100%;
+}
+
+.resultModal h2{
+  font-size:2.5rem;
+}
+
+.resultModal h1{
+  font-size:3rem;
+}
+.resultModal button{
+  padding-inline:2em;
+  background-color:#03a8f45e;
+  font-size:2em;
 }

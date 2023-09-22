@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import SingleQuizComponent from "./SingleQuizComponent";
 import { questions } from "./question";
+import Modal from "./Modal"
+import ResultModal from "./ResultModal"
+import { createPortal } from 'react-dom';
 
-const QuizBox = () => {
+const QuizBox = ({setShowQuizModal}) => {
   const [currentindex, setcurrentindex] = useState(0);
   const [currentQuestions, setcurrentQuestions] = useState(
     questions[currentindex]
@@ -11,13 +14,16 @@ const QuizBox = () => {
   const [showNextButton, setshowNextButton] = useState(false);
   const [disableAllOptions, setdisableAllOptions] = useState(false);
   const [optionSelected, setoptionSelected] = useState(false);
+  const [showResultModal,setshowResultModal] = useState(false);
+  const [score,setscore] = useState(0);
 
   const increaseQuestions = () => {
     setResetOptions(true);
     setshowNextButton(false);
     setoptionSelected(false);
     if (currentindex >= questions.length - 1) {
-      setcurrentindex(0);
+      setshowResultModal(true);
+      setcurrentindex(0)
     } else {
       setcurrentindex((c) => c + 1);
     }
@@ -29,6 +35,8 @@ const QuizBox = () => {
 
   return (
     <>
+    {showResultModal && createPortal(<ResultModal setshowResultModal={setshowResultModal} score={score}/>,document.getElementById("result_modal"))}
+    <Modal>
       <div className="quizBox">
         <div className="quiz_top_content">
           <h1>Answer the questions</h1>
@@ -52,6 +60,7 @@ const QuizBox = () => {
                 optionSelected={optionSelected}
                 setoptionSelected={setoptionSelected}
                 option={option}
+                setscore={setscore}
               />
             );
           })}
@@ -65,11 +74,12 @@ const QuizBox = () => {
               style={{ display: showNextButton ? "" : "none" }}
               onClick={increaseQuestions}
             >
-              Next Que
+              {currentindex == questions.length - 1 ? "FINISH" :"Next Que"}
             </button>
           </div>
         </div>
       </div>
+    </Modal>
     </>
   );
 };

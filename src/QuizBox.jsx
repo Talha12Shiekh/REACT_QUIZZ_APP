@@ -5,11 +5,12 @@ import Modal from "./Modal"
 import ResultModal from "./ResultModal"
 import { createPortal } from 'react-dom';
 
-const QuizBox = ({setShowQuizModal}) => {
+const QuizBox = React.forwardRef(({settimer,timer,increaseCount},ref) => {
   const [currentindex, setcurrentindex] = useState(0);
   const [currentQuestions, setcurrentQuestions] = useState(
     questions[currentindex]
   );
+  let allQuizes = document.querySelectorAll(".singleQuiz");
   const [resetOptions, setResetOptions] = useState(false);
   const [showNextButton, setshowNextButton] = useState(false);
   const [disableAllOptions, setdisableAllOptions] = useState(false);
@@ -18,9 +19,13 @@ const QuizBox = ({setShowQuizModal}) => {
   const [score,setscore] = useState(0);
 
   const increaseQuestions = () => {
+    settimer(15)
+    clearInterval(ref.current);
+    increaseCount()
     setResetOptions(true);
     setshowNextButton(false);
     setoptionSelected(false);
+    setdisableAllOptions(false);
     if (currentindex >= questions.length - 1) {
       setshowResultModal(true);
       setcurrentindex(0)
@@ -33,13 +38,42 @@ const QuizBox = ({setShowQuizModal}) => {
     setcurrentQuestions(questions[currentindex]);
   }, [currentindex]);
 
+  let correctAnswer = currentQuestions.answer;
+
+  useEffect(() => {
+    if(timer == 0){
+      setdisableAllOptions(true);
+      setshowNextButton(true);
+      for(let i = 0;i<allQuizes.length;i++){
+        if(allQuizes[i].innerText == correctAnswer){
+          allQuizes[i].style.backgroundColor = "lightgreen"
+        }
+      }
+    }
+  },[timer])
+
+  function initTimer(){
+     if(timer < 10){
+      return "0" + timer;
+    }else {
+      return timer;
+    }
+  }
+
   return (
     <>
     {showResultModal && createPortal(<ResultModal setshowResultModal={setshowResultModal} score={score}/>,document.getElementById("result_modal"))}
     <Modal>
       <div className="quizBox">
         <div className="quiz_top_content">
-          <h1>Answer the questions</h1>
+          <div>
+            <h1>Answer the questions</h1>
+          </div>
+          <div className="timer_container">
+            <div className="timerBox">
+              <h3>Time {timer == 0 ? "Off" : "Left"} <span>{initTimer()}</span> </h3>
+            </div>
+          </div>
         </div>
         <div className="question">
           <h1>
@@ -61,6 +95,8 @@ const QuizBox = ({setShowQuizModal}) => {
                 setoptionSelected={setoptionSelected}
                 option={option}
                 setscore={setscore}
+                ref={ref}
+                options={currentQuestions.options}
               />
             );
           })}
@@ -82,6 +118,6 @@ const QuizBox = ({setShowQuizModal}) => {
     </Modal>
     </>
   );
-};
+});
 
 export default QuizBox;

@@ -20,6 +20,27 @@
 
 .quiz_top_content{
   border-bottom: 1px solid black;
+  display:flex;
+  align-items:center;
+}
+.timer_container{
+  background-color:#03a8f45e;
+  width:30%;
+  margin-left: 8rem;
+}
+
+.timer_container h3{
+  margin-left:1rem;
+  font-size:1.2em;
+}
+
+.timer_container span{
+  background-color:black;
+  height:100%;
+  display:inline-block;
+  padding:10px;
+  color:white;
+  margin-left:2rem;
 }
 
 .question h1{
@@ -37,6 +58,35 @@
   cursor: pointer;
   margin-bottom: 1.4rem;
   user-select: none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.icon_contianer{
+  width:30px;
+  aspect-ratio:1;
+  
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:bold;
+}
+
+.showTickIcon{
+  display:flex;
+  border:3px solid green;
+  color:green;
+}
+.showCrossIcon{
+  display:flex;
+  border:3px solid red;
+  color:red;
+}
+
+.hidden{
+  display:none;
 }
 
 .quiz_options{
@@ -60,11 +110,11 @@
 }
 
 .green{
-  background-color:lightgreen;
+  background-color:#90ee90b0;
 }
 
 .red{
-  background-color:tomato;
+  background-color:#ff634773;
 }
 
 .pointer_events{
@@ -84,7 +134,7 @@
   left:50%;
   transform:translate(-50%,-50%);
   width: 50vw;
-  height: 85vh;
+  height: 90vh;
   background: white;
   box-shadow: 2px 2px 20px 2px grey;
 }

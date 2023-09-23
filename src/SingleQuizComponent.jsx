@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import "./App.css";
 import { questions } from "./question";
 
-const SingleQuizComponent = ({
+const SingleQuizComponent = React.forwardRef(({
   option,
   currentindex,
   resetOptions,
@@ -12,18 +12,24 @@ const SingleQuizComponent = ({
   setdisableAllOptions,
   optionSelected,
   setoptionSelected,
-  setscore
-}) => {
+  setscore,
+  options
+},ref) => {
   const [isCorrect, setisCorrect] = useState(null);
-
   const [className, setclassName] = useState("");
+  const [iconclassName, seticonclassName] = useState("");
+  const singleQuizRef = useRef();
+
+  const correctAnswer = questions[currentindex].answer;
+  let allQuizes = document.querySelectorAll(".singleQuiz");
 
   function findAnswer(answer) {
+    clearInterval(ref.current)
     if (!optionSelected) {
       setoptionSelected(true);
       setResetOptions(false);
       setshowNextButton(true);
-      const correctAnswer = questions[currentindex].answer;
+      
       const clickedOption = answer;
       if (clickedOption === correctAnswer) {
         setisCorrect(true);
@@ -37,13 +43,23 @@ const SingleQuizComponent = ({
   useEffect(() => {
     if (isCorrect) {
       setclassName("green");
+      seticonclassName(true)
     } else if (isCorrect == null) {
       setclassName("");
+      seticonclassName(null)
     } else if (!isCorrect) {
       setclassName("red");
+      seticonclassName(false)
+
+      for(let i = 0;i<allQuizes.length;i++){
+        if(allQuizes[i].innerText == correctAnswer){
+          allQuizes[i].style.backgroundColor = "lightgreen"
+        }
+      }
     }
     if (resetOptions) {
       setisCorrect(null);
+      seticonclassName(null)
     }
 
     if (optionSelected) {
@@ -53,16 +69,32 @@ const SingleQuizComponent = ({
     }
   }, [isCorrect, resetOptions]);
 
+  function iconClassName(){
+    if(iconclassName == null){
+      return "hidden"
+    }else if(iconclassName){
+      return "showTickIcon"
+    }else {
+      return "showCrossIcon"
+    }
+  }
+
   return (
     <div
       className={`singleQuiz ${className} ${
         disableAllOptions ? "pointer_events" : ""
       }`}
+      ref={singleQuizRef}
       onClick={() => findAnswer(option)}
     >
+      <div>
       {option}
+      </div>
+      <div>
+        <div className={`icon_contianer ${iconClassName()}`}>{iconclassName ? "✓" : "✖"}</div>
+      </div>
     </div>
   );
-};
+});
 
 export default SingleQuizComponent;

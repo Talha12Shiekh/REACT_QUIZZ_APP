@@ -22,7 +22,7 @@ export const questions = [
         numb:2
     },
     {
-        question: "Language for building web applications?",
+        question: "JS stands for ?",
         options: [
             "Java",
             "Python",

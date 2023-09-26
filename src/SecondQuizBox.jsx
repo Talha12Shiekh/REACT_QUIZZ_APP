@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import SingleQuizComponent from "./SingleQuizComponent";
 import { questions } from "./question";
-import Modal from "./Modal"
 import ResultModal from "./ResultModal"
-import { createPortal } from 'react-dom';
 import SecondSingleQuiz from "./SecondSingleQuiz";
+import SecondModal from "./SecondModal";
 
 const SecondQuizBox = React.forwardRef(
   ({ settimer, timer, increaseCount }, ref) => {
@@ -12,7 +10,7 @@ const SecondQuizBox = React.forwardRef(
     const [currentQuestions, setcurrentQuestions] = useState(
       questions[currentindex]
     );
-    let allQuizes = document.querySelectorAll(".singleQuiz");
+    let allQuizes = document.querySelectorAll(".single_quiz");
     const [resetOptions, setResetOptions] = useState(false);
     const [showNextButton, setshowNextButton] = useState(false);
     const [disableAllOptions, setdisableAllOptions] = useState(false);
@@ -21,6 +19,11 @@ const SecondQuizBox = React.forwardRef(
     const [score, setscore] = useState(0);
 
     const increaseQuestions = () => {
+      for(let i = 0;i<allQuizes.length;i++){
+        if(allQuizes[i].style.backgroundColor == "lightgreen"){
+          allQuizes[i].style.backgroundColor = ""
+        }
+      }
         settimer(15)
         clearInterval(ref.current);
         increaseCount()
@@ -32,6 +35,7 @@ const SecondQuizBox = React.forwardRef(
           setshowResultModal(true);
           setcurrentindex(0)
         } else {
+          
           setcurrentindex((c) => c + 1);
         }
       };
@@ -64,7 +68,9 @@ const SecondQuizBox = React.forwardRef(
 
     return (
         <>
-        {showResultModal && createPortal(<ResultModal setshowResultModal={setshowResultModal} score={score}/>,document.getElementById("result_modal"))}
+        <SecondModal isOpen={showResultModal}>
+          <ResultModal increaseCount={increaseCount} settimer={settimer} ref={ref} setshowResultModal={setshowResultModal} score={score}/>
+        </SecondModal>
       <div className="quix_box_container">
         <header className="quix_box_top_content">
           <div>
@@ -108,7 +114,7 @@ const SecondQuizBox = React.forwardRef(
             <button
             style={{ display: showNextButton ? "" : "none" }}
             onClick={increaseQuestions}
-            >Next Que</button>
+            >{currentindex == questions.length - 1 ? "FINISH" :"Next Que"}</button>
           </div>
         </footer>
       </div>

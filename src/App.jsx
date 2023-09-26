@@ -1,9 +1,7 @@
-import QuizBox from "./QuizBox";
 import StartButton from "./StartButton";
-import { createPortal } from "react-dom";
 import { useState, useRef, useEffect } from "react";
 import SecondQuizBox from "./SecondQuizBox";
-import Modal from "./Modal";
+import SecondModal from "./SecondModal";
 
 function App() {
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -33,20 +31,15 @@ function App() {
           increaseCount();
         }}
       />
-      {showQuizModal &&
-        createPortal(
-          <Modal>
-            <SecondQuizBox
-              settimer={settimer}
-              timer={timer}
-              setShowQuizModal={setShowQuizModal}
-              increaseCount={increaseCount}
-              ref={interval}
-            />
-          </Modal>,
-
-          document.getElementById("quiz_modal")
-        )}
+      <SecondModal isOpen={showQuizModal}>
+        <SecondQuizBox
+          settimer={settimer}
+          timer={timer}
+          setShowQuizModal={setShowQuizModal}
+          increaseCount={increaseCount}
+          ref={interval}
+        />
+      </SecondModal>
     </div>
   );
 }

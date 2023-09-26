@@ -24,7 +24,7 @@ const SecondSingleQuiz = React.forwardRef(
   const singleQuizRef = useRef();
 
   const correctAnswer = questions[currentindex].answer;
-  let allQuizes = document.querySelectorAll(".singleQuiz");
+  let allQuizes = document.querySelectorAll(".single_quiz");
 
   function findAnswer(answer) {
     clearInterval(ref.current)
@@ -53,7 +53,6 @@ const SecondSingleQuiz = React.forwardRef(
     } else if (!isCorrect) {
       setclassName("red");
       seticonclassName(false)
-
       for(let i = 0;i<allQuizes.length;i++){
         if(allQuizes[i].innerText == correctAnswer){
           allQuizes[i].style.backgroundColor = "lightgreen"
@@ -73,12 +72,12 @@ const SecondSingleQuiz = React.forwardRef(
   }, [isCorrect, resetOptions]);
 
   function iconClassName(){
-    if(className == null){
-      return ""
+    if(iconclassName == null){
+      return "hidden"
     }else if(iconclassName){
-      return "✓"
+      return "showTickIcon"
     }else {
-      return "✖"
+      return "showCrossIcon"
     }
   }
 
@@ -92,7 +91,7 @@ const SecondSingleQuiz = React.forwardRef(
       >
         <div>{option}</div>
         <div>
-          <div className={`icon_contianer`}>{iconClassName()}</div>
+        <div className={`icon_contianer ${iconClassName()}`}>{iconclassName ? "✓" : "✖"}</div>
         </div>
       </div>
     );

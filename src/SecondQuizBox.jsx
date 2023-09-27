@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { questions } from "./question";
-import ResultModal from "./ResultModal"
 import SecondSingleQuiz from "./SecondSingleQuiz";
-import SecondModal from "./SecondModal";
+import { useNavigate } from "react-router-dom";
 
 const SecondQuizBox = React.forwardRef(
-  ({ settimer, timer, increaseCount }, ref) => {
+  ({ settimer, timer, increaseCount,questions,setscore }, ref) => {
     const [currentindex, setcurrentindex] = useState(0);
     const [currentQuestions, setcurrentQuestions] = useState(
       questions[currentindex]
@@ -15,8 +13,7 @@ const SecondQuizBox = React.forwardRef(
     const [showNextButton, setshowNextButton] = useState(false);
     const [disableAllOptions, setdisableAllOptions] = useState(false);
     const [optionSelected, setoptionSelected] = useState(false);
-    const [showResultModal, setshowResultModal] = useState(false);
-    const [score, setscore] = useState(0);
+    const navigate = useNavigate()
 
     const increaseQuestions = () => {
       for(let i = 0;i<allQuizes.length;i++){
@@ -32,8 +29,8 @@ const SecondQuizBox = React.forwardRef(
         setoptionSelected(false);
         setdisableAllOptions(false);
         if (currentindex >= questions.length - 1) {
-          setshowResultModal(true);
-          setcurrentindex(0)
+          setcurrentindex(0);
+          navigate("/ResultModal")
         } else {
           
           setcurrentindex((c) => c + 1);
@@ -68,9 +65,6 @@ const SecondQuizBox = React.forwardRef(
 
     return (
         <>
-        <SecondModal isOpen={showResultModal}>
-          <ResultModal increaseCount={increaseCount} settimer={settimer} ref={ref} setshowResultModal={setshowResultModal} score={score}/>
-        </SecondModal>
       <div className="quix_box_container">
         <header className="quix_box_top_content">
           <div>

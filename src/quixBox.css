@@ -163,13 +163,32 @@ main {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 70%;
+  background-color: white;
 }
 
 .resultModal h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+}
+
+.settings_button_container{
+  position: fixed;
+  top:10px;
+  right: 25px;
+}
+
+.settings_button_container button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.settings_button_container button span{
+  font-size: 1.5rem;
+  margin-bottom: 2px;
 }
 
 .resultModal h1 {
@@ -180,4 +199,105 @@ main {
   background-color: #03a8f45e;
   font-size: 2em;
   margin-top: 1rem;
+}
+
+.settings_container{
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.settings_container h1{
+  font-size: 3rem;
+  text-align: center;
+}
+
+.settings_container select{
+  padding: .5em;
+  font-size: 2em;
+  margin-left: 1rem;
+  border-radius: 10px;
+  padding-block: 0.2em;
+}
+
+.time_manage_container{
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  margin-top: .5em;
+}
+p{
+  margin: 0;
+}
+
+.time_manage_container p{
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.single_question{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: hsla(240, 100%, 50%, 0.231);
+  width: 95%;
+  margin-inline: auto;
+  height: 40%;
+  padding: .5em;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.single_question:hover{
+  background-color: hsla(240, 100%, 60%, 0.231);
+}
+
+.single_question h2{
+  width: 5%;
+  aspect-ratio: 1;
+  background: #0087ff;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.single_question div{
+  font-size: 1.5rem;
+  margin-inline: 1rem;
+}
+
+.single_question button{
+  width: 5%;
+  aspect-ratio: 1;
+  background-color: tomato;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  position: absolute;
+  right: 10px;
+}
+
+.setting_questions{
+  margin-top: 1.5rem;
+}
+
+.heading_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 2em;
+  margin-top: 1rem;
+}
+
+.heading_container button{
+  background-color: #0087ff;
+  color: white;
+  font-size: 1.2rem;
 }

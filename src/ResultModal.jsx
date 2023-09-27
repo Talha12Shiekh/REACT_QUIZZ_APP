@@ -1,19 +1,24 @@
 import { forwardRef } from "react";
 import { questions } from "./question";
+import { useNavigate } from "react-router-dom";
+import "./quixBox.css"
 
 const ResultModal = forwardRef(function ResultModal(
-  { increaseCount, settimer, score, setshowResultModal },
+  { increaseCount, settimer, score,setscore },
   ref
 ) {
   function initScore() {
-    if (score <= 3) {
-      return "GOOD";
-    } else if (score == 0) {
+    if (score == 0) {
       return "SORRY";
+    } else if (score <= 3) {
+      return "GOOD";
     } else {
       return "EXCELLENT";
     }
   }
+
+  const navigate = useNavigate()
+
   return (
       <div className="resultModal">
         <h1>{initScore()} !</h1>
@@ -22,10 +27,11 @@ const ResultModal = forwardRef(function ResultModal(
         </h2>
         <button
           onClick={() => {
-            setshowResultModal(false);
             settimer(15);
             clearInterval(ref.current);
             increaseCount();
+            navigate("/quizModal");
+            setscore(0)
           }}
         >
           Restart

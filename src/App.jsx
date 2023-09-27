@@ -2,6 +2,7 @@ import StartButton from "./StartButton";
 import { useState, useRef, useEffect } from "react";
 import SecondQuizBox from "./SecondQuizBox";
 import SecondModal from "./SecondModal";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [showQuizModal, setShowQuizModal] = useState(false);
@@ -24,22 +25,57 @@ function App() {
 
   return (
     <div className="container">
-      <StartButton
-        interval={interval}
-        onClick={() => {
-          setShowQuizModal(true);
-          increaseCount();
-        }}
-      />
-      <SecondModal isOpen={showQuizModal}>
-        <SecondQuizBox
-          settimer={settimer}
-          timer={timer}
-          setShowQuizModal={setShowQuizModal}
-          increaseCount={increaseCount}
-          ref={interval}
+      {/* <Routes>
+        <Route
+          path="/"
+          element={
+              <>
+                <StartButton
+                  interval={interval}
+                  onClick={() => {
+                    setShowQuizModal(true);
+                    increaseCount();
+                  }}
+                />
+                <SecondModal isOpen={showQuizModal}>
+                  <SecondQuizBox
+                    settimer={settimer}
+                    timer={timer}
+                    setShowQuizModal={setShowQuizModal}
+                    increaseCount={increaseCount}
+                    ref={interval}
+                  />
+                </SecondModal>
+              </>
+          }
         />
-      </SecondModal>
+      </Routes> */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <StartButton
+              interval={interval}
+              onClick={() => {
+                setShowQuizModal(true);
+                increaseCount();
+              }}
+            />
+          }
+        />
+        <Route
+          path="quizModal"
+          element={
+            <SecondQuizBox
+              settimer={settimer}
+              timer={timer}
+              setShowQuizModal={setShowQuizModal}
+              increaseCount={increaseCount}
+              ref={interval}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }

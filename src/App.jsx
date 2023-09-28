@@ -1,13 +1,15 @@
 import StartButton from "./StartButton";
 import { useState, useRef, useEffect } from "react";
 import SecondQuizBox from "./SecondQuizBox";
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
+import { Routes, Route, useNavigate, Link, useLocation } from "react-router-dom";
 import ResultModal from "./ResultModal";
 import Settings from "./Settings";
 import { questions as DefaultQuestions } from "./question";
 
 function App() {
-  const [timer, settimer] = useState(15);
+  const [timervalue,settimervalue] = useState(15);
+  let localTime = localStorage.getItem("changedTime");
+  const [timer, settimer] = useState(+localTime);
   let interval = useRef();
   const [score, setscore] = useState(0);
   const [questions,setquestions] = useState(DefaultQuestions);
@@ -32,9 +34,16 @@ function App() {
     navigate("/");
   }, []);
 
+  const currentLocation = useLocation();
+  const [location,setlocation] = useState(currentLocation.pathname);
+
+  useEffect(() => {
+    setlocation(currentLocation.pathname);
+  },[currentLocation.pathname])
+
   return (
     <div className="container">
-      <Link to="Settings" className="settings_button_container">
+      {location !== "/Settings" && <Link to="Settings" className="settings_button_container">
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +58,7 @@ function App() {
           </svg>
           <span>Settings</span>
         </button>
-      </Link>
+      </Link>}
       <Routes>
         <Route path="/">
           <Route
@@ -74,6 +83,7 @@ function App() {
                 score={score}
                 setscore={setscore}
                 questions={questions}
+                timervalue={timervalue}
               />
             }
           />
@@ -86,6 +96,8 @@ function App() {
                 ref={interval}
                 score={score}
                 setscore={setscore}
+                timervalue={timervalue}
+                questions={questions}
               />
             }
           />
@@ -94,6 +106,8 @@ function App() {
             element={
               <Settings
                 questions={questions}
+                setquestions={setquestions}
+                settimervalue={settimervalue}
               />
             }
           />

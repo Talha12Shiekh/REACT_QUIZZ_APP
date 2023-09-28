@@ -1,5 +1,4 @@
 import React, { useEffect, useState,useRef} from "react";
-import { questions } from "./question";
 import "./quixBox.css";
 
 const SecondSingleQuiz = React.forwardRef(
@@ -15,7 +14,7 @@ const SecondSingleQuiz = React.forwardRef(
       optionSelected,
       setoptionSelected,
       setscore,
-      options,
+      questions,
     },ref
   ) => {
     const [isCorrect, setisCorrect] = useState(null);

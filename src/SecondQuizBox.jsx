@@ -3,7 +3,7 @@ import SecondSingleQuiz from "./SecondSingleQuiz";
 import { useNavigate } from "react-router-dom";
 
 const SecondQuizBox = React.forwardRef(
-  ({ settimer, timer, increaseCount,questions,setscore }, ref) => {
+  ({ settimer, timer, increaseCount,questions,setscore,timervalue }, ref) => {
     const [currentindex, setcurrentindex] = useState(0);
     const [currentQuestions, setcurrentQuestions] = useState(
       questions[currentindex]
@@ -21,7 +21,7 @@ const SecondQuizBox = React.forwardRef(
           allQuizes[i].style.backgroundColor = ""
         }
       }
-        settimer(15)
+        settimer(timervalue)
         clearInterval(ref.current);
         increaseCount()
         setResetOptions(true);
@@ -97,6 +97,7 @@ const SecondQuizBox = React.forwardRef(
               option={option}
               setscore={setscore}
               ref={ref}
+              questions={questions}
               options={currentQuestions.options}
               />
             );

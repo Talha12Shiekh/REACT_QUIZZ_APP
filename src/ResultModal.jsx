@@ -1,10 +1,9 @@
 import { forwardRef } from "react";
-import { questions } from "./question";
 import { useNavigate } from "react-router-dom";
 import "./quixBox.css"
 
 const ResultModal = forwardRef(function ResultModal(
-  { increaseCount, settimer, score,setscore },
+  { increaseCount, settimer, score,setscore,timervalue,questions },
   ref
 ) {
   function initScore() {
@@ -27,7 +26,7 @@ const ResultModal = forwardRef(function ResultModal(
         </h2>
         <button
           onClick={() => {
-            settimer(15);
+            settimer(timervalue);
             clearInterval(ref.current);
             increaseCount();
             navigate("/quizModal");

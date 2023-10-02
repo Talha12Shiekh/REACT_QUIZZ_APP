@@ -4,6 +4,7 @@ import AddNewQuestionModal from "./AddNewQuestionModal";
 import SecondModal from "./SecondModal";
 const TIME_VALUE = "changedTime";
 import { AiFillDelete } from "react-icons/ai";
+import { FiEdit2 } from "react-icons/fi";
 
 const getValue = () => {
   let localItem = localStorage.getItem(TIME_VALUE);
@@ -14,7 +15,7 @@ const getValue = () => {
 
 const Settings = ({ questions, settimervalue, setquestions }) => {
   let questionLength =
-    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident maxime ipsam officia! ipsam officia! off ";
+    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident maxime ipsam officia! fkadj";
 
   const [value, setvalue] = useState(+getValue());
 
@@ -22,12 +23,30 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
 
   const [question, setquestion] = useState("");
 
+  const [editanswer,seteditanswer]  = useState("")
+
   const [options, setoptions] = useState({
     option1: "",
     option2: "",
     option3: "",
     option4: "",
   });
+
+  const [edited,setedited] = useState(false);
+
+  const [editIndex,seteditIndex] = useState(null);
+
+  let allOptions = document.querySelectorAll("input[type='radio']");
+
+  useEffect(() => {
+    if(editanswer){
+      allOptions.forEach(option => {
+        if(option.nextElementSibling.value == editanswer){
+          option.checked = true
+        }
+      }) 
+    }
+  },[editanswer])
 
   useEffect(() => {
     if(editedQUiz !== null){
@@ -38,6 +57,7 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
         option3:editedQUiz.options[2],
         option4:editedQUiz.options[3],
       });
+      seteditanswer(editedQUiz.answer)
     }
   },[editedQUiz])
 
@@ -50,6 +70,7 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
   };
 
   const handleDelete = (ind) => {
+    if(questions.length == 1) return alert("There should be at least one question") ;
     let newQuestions = [...questions];
     const deletedQuestions = newQuestions.filter((_, index) => index !== ind);
     setquestions(deletedQuestions);
@@ -59,8 +80,10 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
     let newQuestions = [...questions];
     setshowModal(true);
     const quizToEdit = newQuestions.find((_, index) => index == editind);
-    setEditedQuiz(quizToEdit)
-  
+    const edit_index = newQuestions.findIndex((_, index) => index == editind);
+    setEditedQuiz(quizToEdit);
+    seteditIndex(edit_index);
+    setedited(true)
   };
 
   useEffect(() => {
@@ -79,6 +102,11 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
           setoptions={setoptions}
           setshowModal={setshowModal}
           setquestions={setquestions}
+          edited={edited}
+          setedited={setedited}
+          editIndex={editIndex}
+          questions={questions}
+          seteditIndex={seteditIndex}
         />
       </SecondModal>
       <div className="settings_container">
@@ -101,20 +129,23 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
           <h1>Settings</h1>
         </div>
         <div className="setting_questions">
-          {questions.map(({ question }, index) => {
+          {questions.map(({ question,numb }, index) => {
             return (
               <div
+                key={numb}
                 className="single_question"
-                onClick={() => handleEdit(index)}
               >
                 <h2>{index + 1}</h2>
                 <div>
                   {question.length > questionLength.length
-                    ? question.slice(0, questionLength.length)
+                    ? question.slice(0, questionLength.length) + "..."
                     : question}
                 </div>
                 <button onClick={() => handleDelete(index)}>
                   <AiFillDelete size={30} color="white" />
+                </button>
+                <button className="edit_btn" onClick={() => handleEdit(index)}>
+                  <FiEdit2 size={30} color="white" />
                 </button>
               </div>
             );

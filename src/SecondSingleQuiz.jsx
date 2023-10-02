@@ -21,6 +21,8 @@ const SecondSingleQuiz = React.forwardRef(
   const [className, setclassName] = useState("");
   const [iconclassName, seticonclassName] = useState(null);
   const singleQuizRef = useRef();
+  let optionsLength =
+      "Lorem ipsum dolor sit Lorem ipsum dolor sit";
 
   const correctAnswer = questions[currentindex].answer;
   let allQuizes = document.querySelectorAll(".single_quiz");
@@ -88,7 +90,7 @@ const SecondSingleQuiz = React.forwardRef(
         ref={singleQuizRef}
         onClick={() => findAnswer(option)}
       >
-        <div>{option}</div>
+        <div>{option.length > optionsLength.length ? option.slice(0,optionsLength.length) + "..." : option}</div>
         <div>
         <div className={`icon_contianer ${iconClassName()}`}>{iconclassName ? "✓" : "✖"}</div>
         </div>

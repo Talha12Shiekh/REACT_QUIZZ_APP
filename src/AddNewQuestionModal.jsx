@@ -4,42 +4,133 @@ const SingleOptionInput = ({ option, value, name, onChange }) => {
   return (
     <div className="single_option_input">
       <input type="radio" value={value} name={name} />
-      <input type="text" onChange={onChange} value={value} placeholder={`Option ${option}`} />
+      <input
+        type="text"
+        onChange={onChange}
+        value={value}
+        placeholder={`Option ${option}`}
+      />
     </div>
   );
 };
 
-const AddNewQuestionModal = ({answer, setquestions,setshowModal,options,setoptions,question,setquestion,setedited,seteditedIndex }) => {
-  
+const AddNewQuestionModal = ({
+  answer,
+  setquestions,
+  setshowModal,
+  options,
+  setoptions,
+  question,
+  setquestion,
+  setedited,
+  edited,
+  editIndex,
+  questions,
+  seteditIndex,
+}) => {
   // let answer = ""
   let allOptions = document.querySelectorAll("input[type='radio']");
 
-  let number = 1;
+  let number = 0;
+  const { option1, option2, option3, option4 } = options;
+
+  const emptyFields = () => {
+    setshowModal(false);
+    setquestion("");
+    setoptions({
+      option1: "",
+      option2: "",
+      option3: "",
+      option4: "",
+    });
+  };
 
   const handleAddQuestions = () => {
-    const { option1, option2, option3, option4 } = options;
     allOptions.forEach((input) => {
       if (input.checked) {
         answer = input.nextElementSibling.value;
       }
     });
     let newQuestion = {
-        question,
-        options: [option1, option2, option3, option4],
-        answer:answer,
-        numb: number++,
+      question,
+      options: [option1, option2, option3, option4],
+      answer: answer,
+      numb: number++,
     };
-    if (question.length !== 0 && answer.length !== 0 && option1.length !== 0 && option2.length !== 0 && option3.length !== 0 && option4.length !== 0) {
-        setquestions((prev) => [...prev,  newQuestion ]);
-    }else{
-        alert("Please ! Fill the credentials")
+    if (
+      question !== "" &&
+      answer !== "" &&
+      option1 !== "" &&
+      option2 !== "" &&
+      option3 !== "" &&
+      option4 !== ""
+    ) {
+      if (edited) {
+        let newQuestions = [...questions];
+        newQuestions[editIndex] = {
+          ...newQuestions[editIndex],
+          question,
+          options: [option1, option2, option3, option4],
+          answer,
+        };
+        setquestions(newQuestions);
+        setedited(false);
+        seteditIndex(null);
+        emptyFields()
+      } else {
+        setquestions((prev) => [...prev, newQuestion]);
+        emptyFields()
+      }
+      allOptions.forEach((option) => {
+        if (option.checked) {
+          option.checked = false;
+        }
+      });
+    } else {
+      if (question == "") {
+        alert("Please provide the question");
+      } else if (
+        option1 == "" ||
+        option2 == "" ||
+        option3 == "" ||
+        option4 == ""
+      ) {
+        alert("Please provide the correct option");
+      } else {
+        let isAnswered = true;
+        allOptions.forEach((option) => {
+          if (!option.checked) {
+            isAnswered = false;
+          }
+        });
+        if (!isAnswered) {
+          alert("Please specify the correct answer also");
+        }
+      }
     }
-    setshowModal(false)
+  };
+
+  const checkCloseModal = () => {
+    if (
+      question == "" &&
+      option1 == "" &&
+      option2 == "" &&
+      option3 == "" &&
+      option4 == "" &&
+      answer == ""
+    ) {
+      setshowModal(false);
+    } else {
+      handleAddQuestions();
+    }
   };
 
   return (
     <div className="add_modal_container">
-      <h1>Add New Question</h1>
+      <div className="cross" onClick={checkCloseModal}>
+        &times;
+      </div>
+      <h1>{edited ? "Edit" : "Add"} New Question</h1>
       <input
         className="question_input"
         value={question}
@@ -80,7 +171,9 @@ const AddNewQuestionModal = ({answer, setquestions,setshowModal,options,setoptio
         name="options"
         option={"4"}
       />
-      <button onClick={handleAddQuestions}>Add Question</button>
+      <button onClick={handleAddQuestions}>
+        {edited ? "Edit" : "Add"} Question
+      </button>
     </div>
   );
 };

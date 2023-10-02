@@ -5,6 +5,16 @@ import { Routes, Route, useNavigate, Link, useLocation } from "react-router-dom"
 import ResultModal from "./ResultModal";
 import Settings from "./Settings";
 import { questions as DefaultQuestions } from "./question";
+const LOCAL_QUESTIONS = "local_questions"
+
+const getQuestions = () => {
+  const local_questions = localStorage.getItem(LOCAL_QUESTIONS);
+  if(local_questions){
+    return JSON.parse(local_questions)
+  }else {
+    return []
+  }
+}
 
 function App() {
   const [timervalue,settimervalue] = useState(15);
@@ -12,8 +22,12 @@ function App() {
   const [timer, settimer] = useState(+localTime);
   let interval = useRef();
   const [score, setscore] = useState(0);
-  const [questions,setquestions] = useState(DefaultQuestions);
+  const [questions,setquestions] = useState(getQuestions());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_QUESTIONS,JSON.stringify(questions))
+  },[questions])
 
   useEffect(() => {
     if (timer < 1) {

@@ -72,20 +72,25 @@
   body{
     font-size:.5rem !important;
   }
+
   img{
     top: -52px !important;
     width: 173px !important;
     left: -10px !important;
   }
+
   .single_question button{
     font-size:.2rem !important;
   }
+
   .single_question div{
     font-size:.7rem !important;
   }
+  
   .top_content_container button{
     font-size:.8rem !important;
   }
+
   .edit_btn{
     right:50px !important;
   }

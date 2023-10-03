@@ -1,27 +1,31 @@
-import React, { useEffect, useState,useRef } from "react";
-import "./App.css";
-import { questions } from "./question";
+import React, { useEffect, useState,useRef} from "react";
+import "./quixBox.css";
 
-const SingleQuizComponent = React.forwardRef(({
-  option,
-  currentindex,
-  resetOptions,
-  setResetOptions,
-  setshowNextButton,
-  disableAllOptions,
-  setdisableAllOptions,
-  optionSelected,
-  setoptionSelected,
-  setscore,
-  options
-},ref) => {
-  const [isCorrect, setisCorrect] = useState(null);
+const SecondSingleQuiz = React.forwardRef(
+  (
+    {
+      option,
+      currentindex,
+      resetOptions,
+      setResetOptions,
+      setshowNextButton,
+      disableAllOptions,
+      setdisableAllOptions,
+      optionSelected,
+      setoptionSelected,
+      setscore,
+      questions,
+    },ref
+  ) => {
+    const [isCorrect, setisCorrect] = useState(null);
   const [className, setclassName] = useState("");
-  const [iconclassName, seticonclassName] = useState("");
+  const [iconclassName, seticonclassName] = useState(null);
   const singleQuizRef = useRef();
+  let optionsLength =
+      "Lorem ipsum dolor sit Lorem ipsum dolor sit";
 
   const correctAnswer = questions[currentindex].answer;
-  let allQuizes = document.querySelectorAll(".singleQuiz");
+  let allQuizes = document.querySelectorAll(".single_quiz");
 
   function findAnswer(answer) {
     clearInterval(ref.current)
@@ -50,10 +54,10 @@ const SingleQuizComponent = React.forwardRef(({
     } else if (!isCorrect) {
       setclassName("red");
       seticonclassName(false)
-
       for(let i = 0;i<allQuizes.length;i++){
         if(allQuizes[i].innerText == correctAnswer){
-          allQuizes[i].style.backgroundColor = "lightgreen"
+          allQuizes[i].style.backgroundColor = "rgb(137, 209, 194)";
+          allQuizes[i].style.color = "black"
         }
       }
     }
@@ -79,22 +83,21 @@ const SingleQuizComponent = React.forwardRef(({
     }
   }
 
-  return (
-    <div
-      className={`singleQuiz ${className} ${
-        disableAllOptions ? "pointer_events" : ""
-      }`}
-      ref={singleQuizRef}
-      onClick={() => findAnswer(option)}
-    >
-      <div>
-      {option}
-      </div>
-      <div>
+    return (
+      <div
+        className={`single_quiz ${className} ${
+          disableAllOptions ? "pointer_events" : ""
+        }`}
+        ref={singleQuizRef}
+        onClick={() => findAnswer(option)}
+      >
+        <div>{option.length > optionsLength.length ? option.slice(0,optionsLength.length) + "..." : option}</div>
+        <div>
         <div className={`icon_contianer ${iconClassName()}`}>{iconclassName ? "✓" : "✖"}</div>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
-export default SingleQuizComponent;
+export default SecondSingleQuiz;

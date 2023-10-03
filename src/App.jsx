@@ -12,7 +12,7 @@ const getQuestions = () => {
   if(local_questions){
     return JSON.parse(local_questions)
   }else {
-    return []
+    return null
   }
 }
 
@@ -22,7 +22,7 @@ function App() {
   const [timer, settimer] = useState(+localTime);
   let interval = useRef();
   const [score, setscore] = useState(0);
-  const [questions,setquestions] = useState(getQuestions());
+  const [questions,setquestions] = useState(getQuestions() !== null ? getQuestions() : DefaultQuestions);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +44,7 @@ function App() {
   }
 
   useEffect(() => {
+    settimer(timervalue);
     setscore(0)
     navigate("/");
   }, []);

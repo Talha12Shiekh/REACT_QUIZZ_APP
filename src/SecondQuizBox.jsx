@@ -22,8 +22,9 @@ const SecondQuizBox = React.forwardRef(
 
     const increaseQuestions = () => {
       for (let i = 0; i < allQuizes.length; i++) {
-        if (allQuizes[i].style.backgroundColor == "lightgreen") {
+        if (allQuizes[i].style.backgroundColor === "rgb(137, 209, 194)") {
           allQuizes[i].style.backgroundColor = "";
+          allQuizes[i].style.color = "#d99cfc";
         }
       }
       settimer(timervalue);
@@ -53,7 +54,8 @@ const SecondQuizBox = React.forwardRef(
         setshowNextButton(true);
         for (let i = 0; i < allQuizes.length; i++) {
           if (allQuizes[i].innerText == correctAnswer) {
-            allQuizes[i].style.backgroundColor = "lightgreen";
+            allQuizes[i].style.backgroundColor = "rgb(137, 209, 194)";
+            allQuizes[i].style.color = "black"
           }
         }
       }
@@ -69,6 +71,7 @@ const SecondQuizBox = React.forwardRef(
 
     return (
       <>
+      <img src="tkLogo.png"/>
         <div className="quix_box_container">
           <header className="quix_box_top_content">
             <div>
@@ -84,7 +87,6 @@ const SecondQuizBox = React.forwardRef(
           </header>
           <div className="question_container">
             <h1>
-              {currentQuestions.numb}.{" "}
               {currentQuestions.question.length > questionLength.length
                 ? currentQuestions.question.slice(0, questionLength.length) +
                   "..."

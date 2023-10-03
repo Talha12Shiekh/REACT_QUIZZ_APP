@@ -129,10 +129,10 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
           <h1>Settings</h1>
         </div>
         <div className="setting_questions">
-          {questions.map(({ question,numb }, index) => {
+          {questions.map(({ question }, index) => {
             return (
               <div
-                key={numb}
+                key={index}
                 className="single_question"
               >
                 <h2>{index + 1}</h2>
@@ -141,11 +141,11 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
                     ? question.slice(0, questionLength.length) + "..."
                     : question}
                 </div>
-                <button onClick={() => handleDelete(index)}>
+                <button className="dlt_btn" onClick={() => handleDelete(index)}>
                   <AiFillDelete size={30} color="white" />
                 </button>
                 <button className="edit_btn" onClick={() => handleEdit(index)}>
-                  <FiEdit2 size={30} color="white" />
+                  <FiEdit2 size={30} color="black" />
                 </button>
               </div>
             );

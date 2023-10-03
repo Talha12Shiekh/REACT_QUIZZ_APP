@@ -8,7 +8,6 @@ export const questions = [
             "Excellent"
         ],
         answer: "Good",
-        numb:0
     }
 ];
 

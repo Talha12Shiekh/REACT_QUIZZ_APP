@@ -56,7 +56,8 @@ const SecondSingleQuiz = React.forwardRef(
       seticonclassName(false)
       for(let i = 0;i<allQuizes.length;i++){
         if(allQuizes[i].innerText == correctAnswer){
-          allQuizes[i].style.backgroundColor = "lightgreen"
+          allQuizes[i].style.backgroundColor = "rgb(137, 209, 194)";
+          allQuizes[i].style.color = "black"
         }
       }
     }

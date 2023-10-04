@@ -8,8 +8,10 @@ import { FiEdit2 } from "react-icons/fi";
 
 const getValue = () => {
   let localItem = localStorage.getItem(TIME_VALUE);
-  if (localItem) {
+  if (localItem !== null) {
     return JSON.parse(localItem);
+  }else {
+    return 15
   }
 };
 

@@ -12,7 +12,11 @@ const SecondQuizBox = React.forwardRef(
     let timervalue = localStorage.getItem(TIME_VALUE);
 
     useEffect(() => {
-      settimer(+timervalue);
+      if(timervalue){
+        settimer(+timervalue);
+      }else{
+        settimer(15)
+      }
     },[timervalue])
 
     const [currentQuestions, setcurrentQuestions] = useState(

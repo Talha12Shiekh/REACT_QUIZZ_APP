@@ -18,68 +18,73 @@
   body {
     font-size: 0.8rem;
   }
-
 }
 
-@media (max-width: 945px){
-  img{
+@media (max-width: 945px) {
+  img {
     width: 160px !important;
     top: -52px !important;
     left: -9px;
   }
   .quix_box_container {
     width: 90% !important;
-    margin-top:3rem !important;
+    margin-top: 3rem !important;
   }
 }
 
-@media (max-width: 830px){
+@media (max-width: 830px) {
   .resultModal h2 {
     font-size: 2rem !important;
+  }
+
+  .single_question div {
+    font-size: 1rem !important;
+  }
 }
 
-.single_question div{
-  font-size:1rem !important;
-}
-}
-
-@media (max-width: 700px){
+@media (max-width: 700px) {
   .resultModal h2 {
     font-size: 1rem !important;
-}
-.modal{
-  width: 85vw !important;
-}
-}
-
-@media (max-width: 525px){
-  body{
-    font-size:.6rem !important;
   }
-  .single_question div{
-    font-size:.9rem !important;
+  .modal {
+    width: 85vw !important;
   }
 }
 
-@media (max-width: 460px){
-  body{
-    font-size:.5rem !important;
+@media (max-width: 525px) {
+  body {
+    font-size: 0.6rem !important;
+  }
+  .single_question div {
+    font-size: 0.9rem !important;
+  }
+  .icon_contianer {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .single_question h2{
+    border:none !important;
+  }
+}
+
+@media (max-width: 460px) {
+  body {
+    font-size: 0.5rem !important;
   }
 
-  img{
+  img {
     top: -52px !important;
     width: 173px !important;
     left: -10px !important;
   }
 
-  .single_question div{
-    font-size:.7rem !important;
-  }
-  
-  .top_content_container button{
-    font-size:.8rem !important;
+  .single_question div {
+    font-size: 0.7rem !important;
   }
 
+  .top_content_container button {
+    font-size: 0.8rem !important;
+  }
 }
 
 body {
@@ -268,7 +273,7 @@ main {
   color: var(--background);
   border: 5px solid var(--background);
   border-radius: 10px;
-  padding:5em;
+  padding: 5em;
 }
 
 .resultModal h2 {
@@ -411,12 +416,10 @@ img {
   color: var(--background);
 }
 
-.single_question .btns_container{
-  display:flex;
-  position: absolute;
-  right: 0;
+.single_question .btns_container {
+  display: flex;
   justify-content: flex-end;
-} 
+}
 
 .single_question button {
   display: flex;
@@ -425,7 +428,7 @@ img {
   margin-left: 1rem;
 }
 
-.single_question button:nth-child(1){
+.single_question button:nth-child(1) {
   background-color: rgb(255, 77, 71) !important;
 }
 

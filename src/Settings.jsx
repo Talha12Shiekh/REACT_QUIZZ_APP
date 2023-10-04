@@ -139,12 +139,12 @@ const Settings = React.forwardRef(({ questions, settimervalue, setquestions },re
                 className="single_question"
               >
                 <h2>{index + 1}</h2>
-                <div>
+                <div style={{width:"80%",overflow:"hidden"}}>
                   {question.length > questionLength.length
                     ? question.slice(0, questionLength.length) + "..."
                     : question}
                 </div>
-                <div className="btns_container">
+                <div className="btns_container" >
 
                 <button className="dlt_btn" onClick={() => handleDelete(index)}>
                   <AiFillDelete size={30} color="white" />

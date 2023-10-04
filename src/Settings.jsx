@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./quixBox.css";
 import AddNewQuestionModal from "./AddNewQuestionModal";
 import SecondModal from "./SecondModal";
-const TIME_VALUE = "changedTime";
+export const TIME_VALUE = "changedTime";
 import { AiFillDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 
@@ -13,7 +13,7 @@ const getValue = () => {
   }
 };
 
-const Settings = ({ questions, settimervalue, setquestions }) => {
+const Settings = React.forwardRef(({ questions, settimervalue, setquestions },ref) => {
   let questionLength =
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident maxime ipsam officia! fkadj";
 
@@ -107,6 +107,7 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
           editIndex={editIndex}
           questions={questions}
           seteditIndex={seteditIndex}
+          ref={ref}
         />
       </SecondModal>
       <div className="settings_container">
@@ -141,12 +142,16 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
                     ? question.slice(0, questionLength.length) + "..."
                     : question}
                 </div>
+                <div className="btns_container">
+
                 <button className="dlt_btn" onClick={() => handleDelete(index)}>
                   <AiFillDelete size={30} color="white" />
                 </button>
                 <button className="edit_btn" onClick={() => handleEdit(index)}>
                   <FiEdit2 size={30} color="black" />
                 </button>
+                </div>
+
               </div>
             );
           })}
@@ -154,6 +159,6 @@ const Settings = ({ questions, settimervalue, setquestions }) => {
       </div>
     </>
   );
-};
+});
 
 export default Settings;

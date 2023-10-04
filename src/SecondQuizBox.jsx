@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import SecondSingleQuiz from "./SecondSingleQuiz";
 import { useNavigate } from "react-router-dom";
+import { TIME_VALUE } from "./Settings";
 
 const SecondQuizBox = React.forwardRef(
   (
-    { settimer, timer, increaseCount, questions, setscore, timervalue },
+    { settimer, timer, increaseCount, questions, setscore },
     ref
   ) => {
     const [currentindex, setcurrentindex] = useState(0);
+    let timervalue = localStorage.getItem(TIME_VALUE);
+
+    useEffect(() => {
+      settimer(+timervalue);
+    },[timervalue])
+
     const [currentQuestions, setcurrentQuestions] = useState(
       questions[currentindex]
     );
@@ -27,7 +34,7 @@ const SecondQuizBox = React.forwardRef(
           allQuizes[i].style.color = "#d99cfc";
         }
       }
-      settimer(timervalue);
+      settimer(+timervalue);
       clearInterval(ref.current);
       increaseCount();
       setResetOptions(true);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TIME_VALUE } from "./Settings";
 
 const SingleOptionInput = ({ option, value, name, onChange }) => {
   return (
@@ -14,7 +15,7 @@ const SingleOptionInput = ({ option, value, name, onChange }) => {
   );
 };
 
-const AddNewQuestionModal = ({
+const AddNewQuestionModal = React.forwardRef(({
   answer,
   setquestions,
   setshowModal,
@@ -27,9 +28,12 @@ const AddNewQuestionModal = ({
   editIndex,
   questions,
   seteditIndex,
-}) => {
-  // let answer = ""
+  settimer,
+  increaseCount
+},ref) => {
   let allOptions = document.querySelectorAll("input[type='radio']");
+
+  let timervalue = localStorage.getItem(TIME_VALUE)
 
   let number = 0;
   const { option1, option2, option3, option4 } = options;
@@ -108,6 +112,9 @@ const AddNewQuestionModal = ({
         }
       }
     }
+
+    settimer(+timervalue);
+    increaseCount();
   };
 
   const checkCloseModal = () => {
@@ -176,6 +183,6 @@ const AddNewQuestionModal = ({
       </button>
     </div>
   );
-};
+});
 
 export default AddNewQuestionModal;

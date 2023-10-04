@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import SecondQuizBox from "./SecondQuizBox";
 import { Routes, Route, useNavigate, Link, useLocation } from "react-router-dom";
 import ResultModal from "./ResultModal";
-import Settings from "./Settings";
+import Settings, { TIME_VALUE } from "./Settings";
 import { questions as DefaultQuestions } from "./question";
 const LOCAL_QUESTIONS = "local_questions"
 
@@ -18,7 +18,7 @@ const getQuestions = () => {
 
 function App() {
   const [timervalue,settimervalue] = useState(15);
-  let localTime = localStorage.getItem("changedTime");
+  let localTime = localStorage.getItem(TIME_VALUE);
   const [timer, settimer] = useState(+localTime);
   let interval = useRef();
   const [score, setscore] = useState(0);
@@ -123,6 +123,9 @@ function App() {
                 questions={questions}
                 setquestions={setquestions}
                 settimervalue={settimervalue}
+                settimer={settimer}
+                increaseCount={increaseCount}
+                ref={interval}
               />
             }
           />

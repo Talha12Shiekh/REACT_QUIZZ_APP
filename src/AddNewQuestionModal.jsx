@@ -111,6 +111,7 @@ const AddNewQuestionModal = React.forwardRef(({
           alert("Please specify the correct answer also");
         }
       }
+      
     }
 
     settimer(+timervalue);
